@@ -1,0 +1,10 @@
+# Example .gitignore
+*.exe
+*.bin
+*.o
+*.out
+*.dll
+/build/      # Ignore entire build directory
+.vscode/
+/main
+/program
