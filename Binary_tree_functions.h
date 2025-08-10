@@ -11,5 +11,9 @@ typedef struct node
 }node;
 
 struct node* createNode(int data);
+void preOrder(node* root);
+void inOrder(node* root);
+node* iter_search(node* root,int key);
+node* recur_search(node* root,int key);
 
 #endif

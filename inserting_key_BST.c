@@ -1,28 +1,36 @@
 #include<stdio.h>
 #include "Binary_tree_functions.h"
 
-node* iter_search(node* root,int key){
-    while (root!=NULL)      
+void insertKey(node* root, int key){
+
+    node* newNode = createNode(key);
+    node* prev;
+    while (root!=NULL)
     {
+        prev = root; //this points to the prev node, required later
         if (root->data == key)
         {
-            return root;
+            printf("Key already exists!\n");
+            return;
         }
         else if (root->data > key)
         {
             root = root->left;
         }
         else{
-            root  = root->right;
-        }
-        
+            root = root->right;
+        }   
     }
-    return NULL;
-    
+    if (key< prev->data)
+    {
+        prev->left = newNode;
+    }
+    else{
+        prev->right = newNode;
+    }
 }
 
 int main(){
-    
 //  Visualizing the "not" a Binary Search Tree
 //        10
 //       / \
@@ -34,25 +42,18 @@ int main(){
     node* second = createNode(6);
     node* third = createNode(12);
     node* fourth = createNode(3);
-    node* fifth = createNode(5);
+    node* fifth = createNode(8);
     
     root->left = second;
     root->right = third;
     second->left = fourth;
     second->right = fifth;
 
-    int n = 1;  //key to search
-    
-    if (iter_search(root,n) == NULL)
-    {
-        printf("Key not found. Either root = NULL or key not in tree.\n");
-    }
-    else{
-        printf("Key '%d' found!\n",iter_search(root,n)->data);
-    }
+    int n = 7;
 
-    
+    insertKey(root,n);
 
-
+//checkig the insertion by running a inOrder traversal
+    inOrder(root);
 return 0;
 }
