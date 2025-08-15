@@ -42,11 +42,13 @@ void enqueue(queue *k1, int val)
     
 }
 
-void dequeue(queue *k1)
+int dequeue(queue *k1)
 {
     if (!isEmpty(k1))
     {
+        int temp = (k1->arr)[(k1->front)+1];
         k1->front++;
+        return temp;
     }
     else
     {
@@ -65,31 +67,45 @@ void printqueue(queue k1){
 
 int main()
 {
-    queue k1;
-    k1.size = 7;
-    k1.front = k1.rear = -1;
-    k1.arr = (int *)malloc(k1.size * sizeof(int));
+    queue q;
+    q.size = 3;
+    q.front = q.rear = -1;
+    q.arr = (int *)malloc(q.size * sizeof(int));
+
+    int visited[3] = {0,0,0};
+
+    int adjMatrix[3][3] = {
+        {0,1,1},
+        {1,0,1},
+        {1,1,0}   
+    };
+
+    int i = 2;
+    int node;
+
+    printf("%d ",i);
+    visited[i] = 1;
+    enqueue(&q,i);
+
+    while (!isEmpty(&q))
+    {
+        node = dequeue(&q);
+        for (int j = 0; j < 3; j++)
+        {
+            if (adjMatrix[node][j]== 1 && visited[j]==0)
+            {
+                printf("%d ",j);
+                visited[j] = 1;
+                enqueue(&q,j);
+            }
+            
+        }
+        
+    }
     
 
-    
-//testing operations:
-    printqueue(k1);
-    enqueue(&k1, 18);
-    enqueue(&k1, 12);
-    enqueue(&k1, 27);
-    enqueue(&k1, 93);
-    enqueue(&k1, 1);
-    enqueue(&k1, 23);
-    enqueue(&k1, 76);
-    enqueue(&k1, 69);
 
-    printqueue(k1);
 
-    dequeue(&k1);
-
-    dequeue(&k1); 
-
-    printqueue(k1);
     
 
     return 0;
